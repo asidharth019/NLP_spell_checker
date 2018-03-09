@@ -21,9 +21,12 @@ def findCandidates(word, wordAssoBigrams):
                 ed = editdistance.eval(listword)
                 if ed <= 1:
                     candidates.append(listword)
+    return candidates, scores
 
-ifile = sys.argv[1]
-ofile = sys.argv[2]
+# ifile =  sys.argv[1]
+# ofile = sys.argv[2]
+ifile =  'words_input.txt'
+ofile = 'output.txt'
 dictionaryfile = 'count_1w100k.txt'
 
 dic = {}
@@ -31,12 +34,12 @@ with open(dictionaryfile,'r') as inputfile:
     lines = inputfile.readlines()
     for i in lines:
         cols = i.split('\t')
-        dic[cols[1]] = cols[2]
+        dic[cols[0]] = cols[1]
 
 # For total frequency count
 totalWordCount = 0
 for word in dic:
-    totalWordCount += dic[word]
+    totalWordCount += int(dic[word])
 
 # For listing the bigrams of all the words present
 wordAssoBigrams = {}
