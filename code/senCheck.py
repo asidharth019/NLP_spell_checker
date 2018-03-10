@@ -1,7 +1,7 @@
 import sys
 import editdistance
 from metaphone import doublemetaphone
-from nltk.corpus import stopwords
+import stopwords
 gramcount = 2
 
 class candInfo:
@@ -115,10 +115,11 @@ with open(ifile, 'r') as sen_input:
     sentences = sen_input.readlines()
     # For finding wrong words in a sentence
     words = []
-    stop = set(stopwords.words('english'))
+    stop = set(stopwords.get_stopwords('english'))
     for line in sentences:
+        line = line.strip()
         for w in line.split(' '):
-            if w not in dic and w not in stop:
+            if w.upper() not in dic and w.lower() not in stop:
                 words.append(w)
     for word in words:
         candi = []
@@ -127,7 +128,7 @@ with open(ifile, 'r') as sen_input:
         else:
             candi.append('Word is Correct')
 
-        output = word[:-1]  + '\t'
+        output = word + '\t'
 
         if len(candi) != 0:
             i = 0
