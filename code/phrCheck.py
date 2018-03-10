@@ -72,7 +72,7 @@ def findCandidates(word1, wordAssoBigrams1, dict, totalWC, wordAssoPhn1):
 # ifile = sys.argv[1]
 # ofile = sys.argv[2]
 
-ifile = 'sentences_input.txt'
+ifile = 'phrases_input.txt'
 ofile = 'output.txt'
 dictionaryfile = 'count_1w100k.txt'
 
@@ -123,10 +123,11 @@ with open(ifile, 'r') as sen_input:
             if w.upper() not in dic and w.lower() not in stop:
                 words.append(w)
                 i = 1
-        if i == 0:
-            for w in line.split(' '):
-                if doublemetaphone(w)[0]  in wordAssoPhone and w.lower() not in stop:
-                    words.append(w)
+
+            if i == 0:
+                for w in line.split(' '):
+                    if doublemetaphone(w)[0] in wordAssoPhone and w.lower() not in stop:
+                        words.append(w)
     for word in words:
         candi = []
         if word not in dic:
