@@ -1,7 +1,7 @@
 import sys
 import editdistance
 from metaphone import doublemetaphone
-
+from nltk.corpus import stopwords
 gramcount = 2
 
 class candInfo:
@@ -72,7 +72,7 @@ def findCandidates(word1, wordAssoBigrams1, dict, totalWC, wordAssoPhn1):
 # ifile = sys.argv[1]
 # ofile = sys.argv[2]
 
-ifile = 'words_input.txt'
+ifile = 'sentences_input.txt'
 ofile = 'output.txt'
 dictionaryfile = 'count_1w100k.txt'
 
@@ -111,8 +111,15 @@ for word in dic:
 of = open(ofile,'w')
 of.close()
 
-with open(ifile, 'r') as words_input:
-    words = words_input.readlines()
+with open(ifile, 'r') as sen_input:
+    sentences = sen_input.readlines()
+    # For finding wrong words in a sentence
+    words = []
+    stop = set(stopwords.words('english'))
+    for line in sentences:
+        for w in line.split(' '):
+            if w not in dic and w not in stop:
+                words.append(w)
     for word in words:
         candi = []
         if word not in dic:
